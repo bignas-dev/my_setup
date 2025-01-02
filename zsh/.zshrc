@@ -71,7 +71,6 @@ bindkey -e
 # Minimal aliases
 alias l='ls'
 alias ll='ls -l'
-alias g='git'
 
 # Basic directory navigation
 setopt auto_cd

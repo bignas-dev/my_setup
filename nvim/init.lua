@@ -17,4 +17,3 @@ vim.opt.lazyredraw = true
 vim.opt.synmaxcol = 240
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
-

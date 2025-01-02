@@ -10,14 +10,18 @@ for_window [class="^.*"] client.focused #77dd77 #285577 #ffffff #2e9ef4 #285577
 mouse_warping none
 focus_follows_mouse yes
 
+# Add gaps between windows                                                                                                                                                                   
+smart_borders on 
+
+# Screen lock binding                                                                                                                                                                        
+bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 000000 -f  
+
 # Autostart applications
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec_always --no-startup-id xrandr --output HDMI-A-0 --primary --mode 1920x1080 --rate 144 --output eDP --left-of HDMI-A-0 --mode 1920x1080 --rate 60                                        
 exec --no-startup-id picom -b  # Compositor for transparency                                                                                                                                 
-exec --no-startup-id nitrogen --restore  # Wallpaper                                                                                                                                         
-exec --no-startup-id dunst  # Notification daemon   
 
 # Basic Controls
 floating_modifier $mod
@@ -120,24 +124,8 @@ bar {
         tray_output primary
 }
 
-# PipeWire Audio Controls
-# Using wpctl (WirePlumber CLI tool)
-
-# Volume Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+10 i3blocks
-
-# Microphone Controls
-bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+10 i3blocks
-
 # Alternative bindings if you don't have media keys
 bindsym $mod+F3 exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+10 i3blocks
 bindsym $mod+F2 exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+10 i3blocks
 bindsym $mod+F1 exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+10 i3blocks
 bindsym $mod+F4 exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && pkill -RTMIN+10 i3blocks
-
-# Start PipeWire related services (if not already started by your system)
-exec --no-startup-id pipewire
-exec --no-startup-id pipewire-pulse
-exec --no-startup-id wireplumber
