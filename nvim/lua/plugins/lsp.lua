@@ -11,7 +11,8 @@ return {
             ensure_installed = {
                 "lua_ls",    -- Lua
                 "clangd",    -- C/C++
-                "ruff",  -- Python
+                "ruff",      -- Python Linting
+                "pyright"   -- Python Nav
             }
         }
     },

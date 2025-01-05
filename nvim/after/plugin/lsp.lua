@@ -76,12 +76,51 @@ lspconfig.lua_ls.setup({
 
 lspconfig.ruff.setup({
     capabilities = capabilities,
-    init_options = {
-        settings = {
-            -- Ruff settings
-            args = {},
+    settings = {
+        ruff = {
+            lint = {
+                enable = true,
+            }
         }
     }
+})
+
+require('lspconfig').pyright.setup({
+    capabilities = capabilities,
+    settings = {
+        python = {
+            analysis = {
+                -- Disable error reporting features
+                diagnosticMode = "off",    -- Turns off all diagnostics
+                typeCheckingMode = "off",  -- Disables type checking
+
+                -- Keep navigation features enabled
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+
+                -- Disable specific diagnostics categories
+                diagnosticSeverityOverrides = {
+                    reportGeneralTypeIssues = "none",
+                    reportPropertyTypeMismatch = "none",
+                    reportMissingImports = "none",
+                    reportMissingTypeStubs = "none",
+                    reportUndefinedVariable = "none",
+                    reportUnboundVariable = "none",
+                },
+            },
+        },
+    },
+    flags = {
+        debounce_text_changes = 150,
+    },
+    -- Pyright will still provide these essential navigation features
+    -- - Go to definition
+    -- - Go to references
+    -- - Symbol search
+    -- - Auto-completion
+    -- - Signature help
+    -- - Hover information
 })
 lspconfig.clangd.setup({
     capabilities = capabilities,
