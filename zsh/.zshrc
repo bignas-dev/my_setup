@@ -1,49 +1,48 @@
-# Basic environment
+# Set locale for consistent formatting across applications
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Install antidote if not present
+# Install antidote if missing (security note: verify repo URL if concerned)
 [[ -e ${ZDOTDIR:-~}/.antidote ]] || git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
-# Source antidote
+# Load antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
-# Create plugins file if it doesn't exist
+# Initialize plugins file if not present
 [[ -f ${ZDOTDIR:-~}/.zsh_plugins.txt ]] || {
   cat > ${ZDOTDIR:-~}/.zsh_plugins.txt <<EOL
-sindresorhus/pure
-zdharma-continuum/fast-syntax-highlighting kind:defer
-zsh-users/zsh-autosuggestions kind:defer
+sindresorhus/pure           # Clean prompt theme
+zdharma-continuum/fast-syntax-highlighting kind:defer  # Syntax highlighting
+zsh-users/zsh-autosuggestions kind:defer  # Predictive suggestions
 EOL
 }
 
-# Static loading of plugins
+# Load plugins statically for faster startup
 antidote load
 
-# Pure theme customization
-PURE_PROMPT_SYMBOL="❯"
-PURE_PROMPT_VICMD_SYMBOL="❮"
-PURE_CMD_MAX_EXEC_TIME=1
-PURE_CLEAR_SCREEN=0
-PURE_NEW_LINE=0  # Disable new line
-PURE_PROMPT_COMMAND_PREFIX=
+# Symbol configuration
+PURE_PROMPT_SYMBOL="❯"        # Main prompt symbol
+PURE_PROMPT_VICMD_SYMBOL="❮"  # Vi mode symbol
+PURE_CMD_MAX_EXEC_TIME=1      # Show command timing over 1 second
+PURE_CLEAR_SCREEN=0           # Keep prompt on screen clear
+PURE_NEW_LINE=0               # Keep prompt on same line
+PURE_PROMPT_COMMAND_PREFIX=   # Remove execution time prefix
 
-# Pure color customization
-zstyle :prompt:pure:path color cyan
-zstyle :prompt:pure:git:branch color yellow
-zstyle :prompt:pure:git:dirty color red
-zstyle :prompt:pure:prompt:success color green
-zstyle :prompt:pure:virtualenv color blue
-zstyle :prompt:pure:prompt:continuation color magenta
+# Color customization using zstyle
+zstyle :prompt:pure:path color cyan          # Current directory color
+zstyle :prompt:pure:git:branch color yellow  # Git branch color
+zstyle :prompt:pure:git:dirty color red      # Dirty state color
+zstyle :prompt:pure:prompt:success color green  # Success symbol color
+zstyle :prompt:pure:virtualenv color blue    # Python virtualenv color
+zstyle :prompt:pure:prompt:continuation color magenta  # Continuation prompt color
 
-# Override Pure functions to force single line with no newline
+# Simplified single-line prompt rendering
 prompt_pure_preprompt_render() {
-    # Only show git branch and path
     PROMPT="%(12V.%F{blue}%12v%f .)%F{cyan}%~%f%(1V. %F{yellow}${prompt_pure_state[git_branch]}%f.)%F{green}${PURE_PROMPT_SYMBOL}%f "
 }
 
+# Optimized prompt setup hooks
 prompt_pure_setup() {
-    # Simplified prompt setup
     autoload -Uz add-zsh-hook
     prompt_opts=(cr percent sp subst)
     add-zsh-hook precmd prompt_pure_precmd
@@ -54,30 +53,38 @@ prompt_pure_setup() {
     PROMPT="%(12V.%F{blue}%12v%f .)%F{cyan}%~%f%(1V. %F{yellow}${prompt_pure_state[git_branch]}%f.)%F{green}${PURE_PROMPT_SYMBOL}%f "
 }
 
-# History configuration
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-setopt inc_append_history
-setopt hist_ignore_dups
+# History Configuration
+HISTSIZE=1000                  # Session history size
+SAVEHIST=1000                  # Persistent history size
+HISTFILE=~/.zsh_history        # History file location
+setopt inc_append_history      # Save commands immediately
+setopt hist_ignore_dups        # Ignore repeated commands
 
-# Basic completion system
+# Initialize completion system with cache
 autoload -Uz compinit
-compinit -C
+compinit -C -d "${ZSH_CACHE:-$HOME}/zcompdump"  # Cache completions for speed
 
-# Key bindings
-bindkey -e
+# Input Configuration
+bindkey -v  # Use vim key bindings 
 
-# Minimal aliases
-alias l='ls'
-alias ll='ls -l'
+# =====================
+# Directory Navigation
+# ===================
+setopt auto_cd     # Change directory without 'cd'
+setopt auto_pushd  # Maintain directory stack
 
-# Basic directory navigation
-setopt auto_cd
-setopt auto_pushd
+# Aliases
+alias l='ls -1'    # Single-column list
+alias ll='ls -lh'  # Long list format
+alias la='ls -lAh'  # Show hidden files
+alias ..='cd ..'    # Quick parent navigation
 
-# Load pure prompt
+# Initialize Prompt
 autoload -U promptinit; promptinit
-prompt pure
+prompt pure  # Activate customized pure prompt
 
+# Zoxide Integration
+# Smart directory jumping (use 'z' instead of 'cd')
 eval "$(zoxide init zsh)"
+
+setxkbmap -option caps:escape
