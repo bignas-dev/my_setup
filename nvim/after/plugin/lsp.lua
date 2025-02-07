@@ -3,10 +3,9 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Load snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 
--- Setup nvim-cmp
+-- Keymaps
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -28,11 +27,10 @@ cmp.setup({
     }),
 })
 
--- Custom on_attach function
+-- Keymaps
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    -- Keymaps
     vim.keymap.set("n", "<leader>dc", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, opts)
@@ -42,75 +40,54 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>n", function()
         vim.lsp.buf.format({ async = true })
     end, opts)
-
-    -- Diagnostics
-    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 end
 
--- Configure language servers
+-- Lua Setup (lua_ls - all)
 lspconfig.lua_ls.setup({
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
         Lua = {
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                checkThirdParty = false,
-            },
+            diagnostics = { globals = { "vim" } },
+            workspace = { checkThirdParty = false },
         },
     },
 })
 
+-- Python Setup (ruff - format, pylsp - autocomplete)
 lspconfig.ruff.setup({
     capabilities = capabilities,
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+        on_attach(client, bufnr)
+    end,
     settings = {
         ruff = {
-            lint = {
-                enable = true,
-            },
+            lint = { enable = true },
         },
     },
 })
 
-lspconfig.pyright.setup({
+
+lspconfig.pylsp.setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    settings = {
-        python = {
-            analysis = {
-                diagnosticMode = "off",
-                typeCheckingMode = "off",
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticSeverityOverrides = {
-                    reportGeneralTypeIssues = "none",
-                    reportPropertyTypeMismatch = "none",
-                    reportMissingImports = "none",
-                    reportMissingTypeStubs = "none",
-                    reportUndefinedVariable = "none",
-                    reportUnboundVariable = "none",
-                },
-            },
-        },
-    },
     flags = {
-        debounce_text_changes = 150,
+        debounce_text_changes = 100,
     },
-})
-
-
-lspconfig.clangd.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-
--- Enable border for LSP hover windows
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = { enabled = false },
+                pyflakes = { enabled = true },
+                mccabe = { enabled = false },
+                pydocstyle = { enabled = false },
+                pylsp_mypy = { enabled = true, live_mode = true },
+                pylsp_black = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                rope_completion = { enabled = true },
+            },
+        },
+    },
 })

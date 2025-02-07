@@ -1,4 +1,4 @@
--- Bootstrap lazy.nvim
+-- Bootstrap 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -15,42 +15,30 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
+-- Keybinds
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
+-- Setup
 require("lazy").setup({
     spec = {
-        -- import your plugins
         { import = "plugins" },
     },
     install = {
         colorscheme = { "habamax" },
-        -- Automatically install missing plugins on startup
         missing = true,
     },
-    -- Configure automatic updates
     checker = {
-        enabled = true,
-        -- Check for updates more frequently (default: 3600 seconds/1 hour)
-        frequency = 3600,
-        -- Automatically install updates
-        notify = true,        -- Show notification when updates are found
-        check_pinned = false, -- Check for updates even on pinned plugins
+        enabled = false,
+        check_pinned = false,
     },
-    -- Automatically run `:LuaUpdate` when changes are found
+    change_detection = {
+        enabled = false,
+        notify = false,
+    },
     performance = {
         rtp = {
             reset = true,
         },
     },
-    -- Add auto-install and update hooks
-    change_detection = {
-        enabled = true,
-        notify = true, -- Show notification when changes are found
-    },
-    -- Automatically update on changes
-    auto_update = true,
 })

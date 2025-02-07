@@ -9,15 +9,11 @@ return {
         "williamboman/mason-lspconfig.nvim",
         opts = {
             ensure_installed = {
-                "lua_ls",                  -- Lua
-                "clangd",                  -- C/C++
-                "ruff",                    -- Python Linting
-                "pyright",                 -- Python Navigation
-                "bashls",                  -- Bash
-                "jsonls",                  -- JSON
-                "yamlls",                  -- YAML
+                "lua_ls", -- Lua
+                "ruff",   -- Python
+                "pylsp",  -- Python
             },
-            automatic_installation = true, -- Automatically install LSPs
+            automatic_installation = true,
         },
     },
     {
@@ -30,26 +26,6 @@ return {
             "L3MON4D3/LuaSnip",             -- Snippet engine
             "saadparwaiz1/cmp_luasnip",     -- Snippets source for nvim-cmp
             "rafamadriz/friendly-snippets", -- Snippet collection
-            "j-hui/fidget.nvim",            -- LSP progress UI
-            "folke/neodev.nvim",            -- Better Lua development
         },
-        config = function()
-        end,
-    },
-    {
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        opts = {
-            text = {
-                spinner = "dots", -- Animation style
-            },
-            window = {
-                blend = 0, -- Fully opaque
-            },
-        },
-    },
-    {
-        "folke/neodev.nvim",
-        opts = {},
     },
 }
