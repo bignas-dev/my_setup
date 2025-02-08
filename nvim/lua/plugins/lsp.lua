@@ -10,8 +10,11 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",  -- Lua LSP
-                    "pyright", -- Python LSP
+                    "lua_ls",          -- Lua
+                    "ruff", "pyright", -- Python
+                    "ts_ls",           -- JavaScript
+                    "html",            -- HTML
+                    "cssls"            -- CSS
                 },
             })
         end,

@@ -46,8 +46,35 @@ lspconfig.lua_ls.setup({
 })
 
 -- Python
+lspconfig.ruff.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "python" },
+})
+
 lspconfig.pyright.setup({
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "python" },
+})
+
+-- JavaScript
+lspconfig.ts_ls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "javascript" },
+})
+
+-- HTML
+lspconfig.html.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "html" },
+})
+
+-- CSS
+lspconfig.cssls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "css" },
 })
