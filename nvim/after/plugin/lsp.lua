@@ -1,17 +1,9 @@
 local lspconfig = require("lspconfig")
 local cmp = require("cmp")
-local luasnip = require("luasnip")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("luasnip.loaders.from_vscode").lazy_load()
-
--- Keymaps
+-- Setup cmp without snippet expansion
 cmp.setup({
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
     mapping = cmp.mapping.preset.insert({
         ["<C-y>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
@@ -21,16 +13,14 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
     }),
 })
 
--- Keymaps
+-- Keymaps for LSP actions remain unchanged
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
-
     vim.keymap.set("n", "<leader>dc", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, opts)
@@ -42,10 +32,11 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
--- Lua Setup (lua_ls - all)
+-- Lua
 lspconfig.lua_ls.setup({
     capabilities = capabilities,
     on_attach = on_attach,
+    filetypes = { "lua" },
     settings = {
         Lua = {
             diagnostics = { globals = { "vim" } },
@@ -54,40 +45,9 @@ lspconfig.lua_ls.setup({
     },
 })
 
--- Python Setup (ruff - format, pylsp - autocomplete)
-lspconfig.ruff.setup({
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        client.server_capabilities.hoverProvider = false
-        on_attach(client, bufnr)
-    end,
-    settings = {
-        ruff = {
-            lint = { enable = true },
-        },
-    },
-})
-
-
-lspconfig.pylsp.setup({
+-- Python
+lspconfig.pyright.setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    flags = {
-        debounce_text_changes = 100,
-    },
-    settings = {
-        pylsp = {
-            plugins = {
-                pycodestyle = { enabled = false },
-                pyflakes = { enabled = true },
-                mccabe = { enabled = false },
-                pydocstyle = { enabled = false },
-                pylsp_mypy = { enabled = true, live_mode = true },
-                pylsp_black = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = false },
-                rope_completion = { enabled = true },
-            },
-        },
-    },
+    filetypes = { "python" },
 })

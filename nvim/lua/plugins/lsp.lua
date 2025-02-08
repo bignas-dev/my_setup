@@ -7,25 +7,28 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        opts = {
-            ensure_installed = {
-                "lua_ls", -- Lua
-                "ruff",   -- Python
-                "pylsp",  -- Python
-            },
-            automatic_installation = true,
-        },
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",  -- Lua LSP
+                    "pyright", -- Python LSP
+                },
+            })
+        end,
     },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/nvim-cmp",             -- Autocompletion
-            "hrsh7th/cmp-nvim-lsp",         -- LSP source for nvim-cmp
-            "hrsh7th/cmp-buffer",           -- Buffer completions
-            "hrsh7th/cmp-path",             -- Path completions
-            "L3MON4D3/LuaSnip",             -- Snippet engine
-            "saadparwaiz1/cmp_luasnip",     -- Snippets source for nvim-cmp
-            "rafamadriz/friendly-snippets", -- Snippet collection
+            {
+                "hrsh7th/nvim-cmp",
+                dependencies = {
+                    "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
+                    "hrsh7th/cmp-buffer",   -- Buffer completions
+                    "hrsh7th/cmp-path",     -- Path completions
+                },
+            },
         },
+        config = function()
+        end,
     },
 }
