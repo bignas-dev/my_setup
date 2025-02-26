@@ -38,7 +38,7 @@ sudo apt install gnome-terminal zsh zoxide neovim python3-venv nodejs npm i3
 
 ### Zsh Setup
 
-- Paste [zsh/.zshrc](.zshrc) into `~/.zshrc`
+- Paste [zsh](zsh/.zshrc) into `~/.zshrc`
 - Run `chsh -s $(which zsh)`
 
 ### Gnome Terminal Setup
@@ -53,8 +53,8 @@ sudo apt install gnome-terminal zsh zoxide neovim python3-venv nodejs npm i3
 
 ### i3 Setup
 
-- Paste [i3/i3](i3) into `~/.config/i3`
-- Paste [i3/i3status](i3status) into `~/.config/i3status`
+- Paste [i3](i3/i3) into `~/.config/i3`
+- Paste [i3status](i3/i3status) into `~/.config/i3status`
 
 
 
