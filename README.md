@@ -19,6 +19,8 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
+## Primary Tools
+
 ### Firefox Setup
 
 Get `user.js` from this link:
@@ -56,6 +58,10 @@ sudo apt install gnome-terminal zsh zoxide neovim python3-venv nodejs npm i3
 - Paste [i3](i3/i3) into `~/.config/i3`
 - Paste [i3status](i3/i3status) into `~/.config/i3status`
 
+## Secondary Tools
 
-
-
+```bash
+sudo apt install prefetch neofetch htop git gh qalc mpv flameshot curl tmux gimp ffmpeg feh libreoffice
+curl -LsSf https://astral.sh/uv/install.sh | sh
+sudo snap install obsidian bitwarden discord
+```
