@@ -54,11 +54,14 @@ prompt_pure_setup() {
 }
 
 # History Configuration
-HISTSIZE=1000                  # Session history size
-SAVEHIST=1000                  # Persistent history size
+HISTSIZE=10000                 # Session history size
+SAVEHIST=10000                 # Persistent history size
 HISTFILE=~/.zsh_history        # History file location
 setopt inc_append_history      # Save commands immediately
 setopt hist_ignore_dups        # Ignore repeated commands
+setopt hist_ignore_space       # Don't record commands starting with space
+setopt hist_expire_dups_first  # Remove duplicates first when trimming history
+setopt share_history           # Share history between sessions
 
 # Initialize completion system with cache
 autoload -Uz compinit
@@ -88,3 +91,6 @@ prompt pure  # Activate customized pure prompt
 eval "$(zoxide init zsh)"
 
 setxkbmap -option caps:escape
+
+. "$HOME/.local/bin/env"
+export PATH=~/.npm-global/bin:$PATH

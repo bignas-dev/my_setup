@@ -15,9 +15,15 @@ bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 000000 -f
 # Autostart applications
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# Ensure network-manager-gnome is installed for WiFi management in system tray
 exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --output HDMI-A-0 --primary --mode 1920x1080 --rate 144 --output eDP --left-of HDMI-A-0 --mode 1920x1080 --rate 60                                        
-exec --no-startup-id picom -b                                                                                                                                 
+exec --no-startup-id picom -b
+# Remap Caps Lock to Escape
+exec_always --no-startup-id xmodmap -e "clear lock" -e "keycode 66 = Escape"
+# Set global dark theme
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'                
 
 # Basic Controls
 floating_modifier $mod
@@ -117,6 +123,16 @@ mode "resize" {
 bar {
     status_command i3status
     tray_output primary
+    colors {
+        background #222222
+        statusline #ffffff
+        separator #666666
+        
+        focused_workspace  #4c7899 #285577 #ffffff
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #2f343a #900000 #ffffff
+    }
 }
 
 # Alternative bindings if you don't have media keys
