@@ -56,4 +56,28 @@ lspconfig.pyright.setup({
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "python" },
+    settings = {
+        pyright = {},
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
+                diagnosticSeverityOverrides = {
+                    reportMissingImports = "none",
+                    reportGeneralTypeIssues = "none",
+                    reportUnusedImport = "none",
+                    reportAttributeAccessIssue = "none",
+                    reportOptionalMemberAccess = "none",
+                    reportOptionalSubscript = "none",
+                    reportPrivateImportUsage = "none",
+                    reportInvalidTypeVarUse = "none",
+                    reportUntypedFunctionDecorator = "none",
+                    reportUntypedClassDecorator = "none",
+                    reportUntypedBaseClass = "none",
+                    reportUndefinedVariable = "none",
+                    reportCallInDefaultInitializer = "none",
+                },
+                autoImportCompletions = false,
+            },
+        },
+    },
 })
