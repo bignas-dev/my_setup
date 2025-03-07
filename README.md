@@ -3,34 +3,10 @@
 Steps to achieve my working environment.
 
 ### Ubuntu Installation
-
-Get Ubuntu Deskop from this link:
 https://ubuntu.com/download/desktop
 
-- Select proprietary software
-
-### Ubuntu Settings
-
-- Select fastest server
-- Select dark mode
-
-```bash
-sudo apt update
-sudo apt upgrade -y
-```
-
-## Primary Tools
-
-### Firefox Setup
-
-Get `user.js` from this link:
-https://github.com/yokoffing/Betterfox/blob/main/user.js
-
-- Install user.js
-- Select NextDNS 
-- Select DuckDuckGo
-- Select dark mode
-- Select "Always ask where to save files"
+### Librewolf
+https://librewolf.net/installation/debian/
 
 ### Dependancies Installation
 
