@@ -39,19 +39,19 @@ sudo apt install neovim python3-venv nodejs npm python3-pip
 curl -LsSf https://astral.sh/uv/install.sh | sh
 source $HOME/.local/bin/env
 uv tool install ruff
-ln -s ~/my_setup/nvim ~/.config/nvim
+ln -sfn ~/my_setup/nvim ~/.config/nvim
 ```
 
 ### i3
 ```bash
-sudo apt install i3 qt5ct
+sudo apt install i3 i3status qt5ct -y
+mkdir -p ~/.config/i3 ~/.config/i3status
+ln -sfn ~/my_setup/i3/i3 ~/.config/i3/config
+ln -sfn ~/my_setup/i3/i3status ~/.config/i3status/config
 ```
-- Paste [i3](i3/i3) into `~/.config/i3`
-- Paste [i3status](i3/i3status) into `~/.config/i3status`
 
 ### Secondary Tools
 
 ```bash
 sudo apt install preload neofetch htop git gh qalc mpv flameshot curl tmux gimp ffmpeg feh libreoffice
-curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
