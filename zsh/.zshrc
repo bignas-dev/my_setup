@@ -92,5 +92,4 @@ eval "$(zoxide init zsh)"
 
 setxkbmap -option caps:escape
 
-. "$HOME/.local/bin/env"
 export PATH=~/.npm-global/bin:$PATH

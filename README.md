@@ -1,58 +1,42 @@
 # My Setup
 
-Steps to achieve my working environment.
-
-### Ubuntu Installation
-https://ubuntu.com/download/desktop
-
-- Dark theme
-- Add all software sources
-- Find fastest server
-
-```bash
-sudo apt update
-sudo apt upgrade -y
-sudo apt autoremove -y
-```
-
 ### Librewolf
 ```bash
+sudo apt remove firefox --purge -y
 sudo apt install extrepo -y
 sudo extrepo enable librewolf
 sudo apt update
 sudo apt install librewolf -y
 ```
 
-- Save cookies
-- Remove search suggestions
-
-Add plugins:
-- uBlock Origin
+Install plugins:
 - Dark Reader
-- Sponsorblock
+- SponsorBlock
+- Return Youtube Dislike
+- Vimium
 
-### Gnome Terminal
+Change settings:
+- Don't delete cookies
+- Turn on dark mode
+
 ```bash
-sudo apt install gnome-terminal
+git clone https://github.com/bignas-dev/my_setup.git
 ```
-
-- Enable Dark Mode
-- Select "Run command as login shell"
-- Select "Run a custom command instead of my shell" and write `zsh`
 
 ### Zsh
 ```bash
 sudo apt install zsh zoxide
+rm .zshrc
+ln -s ~/my_setup/zsh/.zshrc ~/.zshrc
+chsh -s $(which zsh)
 ```
-
-- Paste [zsh](zsh/.zshrc) into `~/.zshrc`
-- Run `chsh -s $(which zsh)`
+Restart PC
 
 ### Neovim
 ```bash
 sudo apt install neovim python3-venv nodejs npm python3-pip
+ln -s ~/my_setup/nvim ~/.config/nvim
 ```
-- Paste [nvim](nvim) into `~/.config/nvim`
 
 ### i3
 ```bash
@@ -61,14 +45,9 @@ sudo apt install i3 qt5ct
 - Paste [i3](i3/i3) into `~/.config/i3`
 - Paste [i3status](i3/i3status) into `~/.config/i3status`
 
-```bash
-gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-export QT_STYLE_OVERRIDE=adwaita-dark
-```
-## Secondary Tools
+### Secondary Tools
 
 ```bash
 sudo apt install preload neofetch htop git gh qalc mpv flameshot curl tmux gimp ffmpeg feh libreoffice
 curl -LsSf https://astral.sh/uv/install.sh | sh
-sudo snap install obsidian bitwarden
 ```
