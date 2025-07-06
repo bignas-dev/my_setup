@@ -28,7 +28,7 @@ git clone https://github.com/bignas-dev/my_setup.git
 ```bash
 sudo apt install zsh zoxide
 rm .zshrc
-ln -s ~/my_setup/zsh/.zshrc ~/.zshrc
+ln -sfn ~/my_setup/zsh/.zshrc ~/.zshrc
 chsh -s $(which zsh)
 ```
 Restart PC
@@ -45,9 +45,8 @@ ln -sfn ~/my_setup/nvim ~/.config/nvim
 ### i3
 ```bash
 sudo apt install i3 i3status qt5ct -y
-mkdir -p ~/.config/i3 ~/.config/i3status
-ln -sfn ~/my_setup/i3/i3 ~/.config/i3/config
-ln -sfn ~/my_setup/i3/i3status ~/.config/i3status/config
+mkdir -p ~/.config/i3
+ln -sfn ~/my_setup/i3 ~/.config/i3
 ```
 
 ### Secondary Tools
