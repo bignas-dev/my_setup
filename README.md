@@ -20,13 +20,14 @@ Change settings:
 - Turn on dark mode
 
 ```bash
-sudo apt install git gh tealdeer curl
+sudo apt install git gh tealdeer curl -y
+curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/bignas-dev/my_setup.git
 ```
 
 ### Zsh
 ```bash
-sudo apt install zsh zoxide
+sudo apt install zsh zoxide -y
 rm .zshrc
 ln -s ~/my_setup/zsh/.zshrc ~/.zshrc
 chsh -s $(which zsh)
@@ -36,7 +37,6 @@ Restart PC
 ### Neovim
 ```bash
 sudo apt install neovim python3-venv nodejs npm python3-pip
-curl -LsSf https://astral.sh/uv/install.sh | sh
 uv tool install ruff
 ln -s ~/my_setup/nvim ~/.config/nvim
 ```
