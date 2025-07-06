@@ -27,7 +27,6 @@ git clone https://github.com/bignas-dev/my_setup.git
 ### Zsh
 ```bash
 sudo apt install zsh zoxide
-rm .zshrc
 ln -sfn ~/my_setup/zsh/.zshrc ~/.zshrc
 chsh -s $(which zsh)
 ```
