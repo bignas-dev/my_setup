@@ -44,8 +44,9 @@ ln -sfn ~/my_setup/nvim ~/.config/nvim
 ### i3
 ```bash
 sudo apt install i3 i3status qt5ct -y
-mkdir -p ~/.config/i3
-ln -sfn ~/my_setup/i3 ~/.config/i3
+mkdir ~/.config/i3
+ln -sfn ~/my_setup/i3/i3       ~/.config/i3
+ln -sfn ~/my_setup/i3/i3status ~/.config/i3status
 ```
 
 ### Secondary Tools
