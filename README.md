@@ -1,14 +1,18 @@
 # My Setup
 
-### Librewolf
+```bash
+sudo apt update
+sudo apt upgrade -y
+sudo apt autoremove -y
+```
+
+### librewolf
 ```bash
 sudo apt remove firefox --purge -y
 sudo apt install extrepo -y
 sudo extrepo enable librewolf
-sudo apt update
 sudo apt install librewolf -y
 ```
-
 Install plugins:
 - Dark Reader
 - SponsorBlock
@@ -20,37 +24,56 @@ Change settings:
 - Turn on dark mode
 
 ```bash
-sudo apt install git gh tealdeer curl
+sudo apt install git -y
 git clone https://github.com/bignas-dev/my_setup.git
 ```
 
-### Zsh
+### zsh
 ```bash
-sudo apt install zsh zoxide
+sudo apt install zsh zoxide -y
 ln -sfn ~/my_setup/zsh/.zshrc ~/.zshrc
 chsh -s $(which zsh)
 ```
 Restart PC
 
-### Neovim
+### neovim
 ```bash
-sudo apt install neovim python3-venv nodejs npm python3-pip
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
-uv tool install ruff
+sudo apt install neovim python3-venv nodejs npm python3-pip curl -y
+curl -LsSf https://astral.sh/ruff/install.sh | sh
 ln -sfn ~/my_setup/nvim ~/.config/nvim
 ```
 
 ### i3
 ```bash
 sudo apt install i3 i3status qt5ct -y
-mkdir ~/.config/i3
+mkdir -p ~/.config/i3
 ln -sfn ~/my_setup/i3/i3       ~/.config/i3
 ln -sfn ~/my_setup/i3/i3status ~/.config/i3status
 ```
 
-### Secondary Tools
-
+#### Configure Dark Mode for All GTK Apps
 ```bash
-sudo apt install preload neofetch htop git gh qalc mpv flameshot curl tmux gimp ffmpeg feh libreoffice
+mkdir -p ~/.config/gtk-3.0
+cat > ~/.config/gtk-3.0/settings.ini << EOF
+[Settings]
+gtk-theme-name=Mint-Y-Dark
+gtk-icon-theme-name=Mint-Y-Dark
+gtk-application-prefer-dark-theme=1
+EOF
+
+cat > ~/.gtkrc-2.0 << EOF
+gtk-theme-name="Mint-Y-Dark"
+gtk-icon-theme-name="Mint-Y-Dark"
+gtk-application-prefer-dark-theme=1
+EOF
+
+export QT_QPA_PLATFORMTHEME=qt5ct
+echo 'export QT_QPA_PLATFORMTHEME=qt5ct' >> ~/.zshrc
+echo 'export GTK_THEME=Mint-Y-Dark' >> ~/.zshrc
 ```
+
+### Secondary Tools
+```bash
+sudo apt install preload neofetch htop tealdeer -y
+```
+
