@@ -146,6 +146,7 @@ alias la='ls -lAh'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias vi="nvim"
 
 # Directory stack aliases
 alias d='dirs -v'

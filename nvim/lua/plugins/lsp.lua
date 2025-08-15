@@ -10,8 +10,9 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",          -- Lua
-                    "ruff", "pyright", -- Python
+                    "lua_ls", -- Lua
+                    "ruff",   -- Python linting/formatting
+                    "ty",     -- Python type checking
                 },
             })
         end,
@@ -22,13 +23,28 @@ return {
             {
                 "hrsh7th/nvim-cmp",
                 dependencies = {
-                    "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
-                    "hrsh7th/cmp-buffer",   -- Buffer completions
-                    "hrsh7th/cmp-path",     -- Path completions
+                    "hrsh7th/cmp-nvim-lsp",
+                    "hrsh7th/cmp-buffer",
+                    "hrsh7th/cmp-path",
                 },
             },
         },
         config = function()
+            -- Your existing LSP config goes here
+        end,
+    },
+    {
+        "aekasitt/tylsp.nvim",
+        ft = "python",
+        config = function()
+            require("tylsp").setup({
+                -- Optional: customize ty settings
+                settings = {
+                    ty = {
+                        -- Add any ty-specific settings here
+                    }
+                }
+            })
         end,
     },
 }

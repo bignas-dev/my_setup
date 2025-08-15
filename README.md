@@ -37,15 +37,18 @@ chsh -s $(which zsh)
 Restart PC
 
 ### neovim
+Install nvim youself
 ```bash
-sudo apt install neovim python3-venv nodejs npm python3-pip curl -y
-curl -LsSf https://astral.sh/ruff/install.sh | sh
+sudo apt install python3-venv python3-pip curl -y
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install ruff
+uv tool install ty
 ln -sfn ~/my_setup/nvim ~/.config/nvim
 ```
 
 ### i3
 ```bash
-sudo apt install i3 i3status qt5ct -y
+sudo apt install i3 i3status qt5ct flameshot -y
 mkdir -p ~/.config/i3
 ln -sfn ~/my_setup/i3/i3       ~/.config/i3
 ln -sfn ~/my_setup/i3/i3status ~/.config/i3status
@@ -72,7 +75,7 @@ echo 'export QT_QPA_PLATFORMTHEME=qt5ct' >> ~/.zshrc
 echo 'export GTK_THEME=Mint-Y-Dark' >> ~/.zshrc
 ```
 
-### Secondary Tools
+### More Tools
 ```bash
 sudo apt install preload neofetch htop tealdeer -y
 ```

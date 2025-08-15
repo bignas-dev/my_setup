@@ -12,12 +12,19 @@ smart_borders on
 # Screen lock binding                                                                                                                                                                        
 bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 000000 -f  
 
+# Remove sleeping
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank
+
 # Autostart applications
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
 # Ensure network-manager-gnome is installed for WiFi management in system tray
 exec --no-startup-id nm-applet
 exec --no-startup-id picom -b
+
 # Remap Caps Lock to Escape
 exec_always --no-startup-id xmodmap -e "clear lock" -e "keycode 66 = Escape"
 # Set global dark theme
@@ -50,14 +57,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Layout Controls
-bindsym $mod+b split h
-bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+a focus parent
 
 # Define workspace names
 set $ws1 "1"
@@ -99,23 +100,6 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'"
-bindsym $mod+r mode "resize"
-
-# Resize mode
-mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
-
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
 
 # Start i3bar to display a workspace bar
 bar {
@@ -125,17 +109,8 @@ bar {
         background #222222
         statusline #ffffff
         separator #666666
-        
         focused_workspace  #4c7899 #285577 #ffffff
-        active_workspace   #333333 #5f676a #ffffff
-        inactive_workspace #333333 #222222 #888888
-        urgent_workspace   #2f343a #900000 #ffffff
     }
 }
-
-# Alternative bindings if you don't have media keys
-bindsym $mod+F1 exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+10
-bindsym $mod+F2 exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+10
-bindsym $mod+F3 exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+10
 
 bindsym Print exec flameshot gui
