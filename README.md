@@ -46,7 +46,7 @@ sudo ln -sfn /opt/nvim-linux-x86_64 /opt/nvim
 echo 'export PATH="$PATH:/opt/nvim/bin"' | sudo tee /etc/profile.d/neovim.sh
 sudo chmod 644 /etc/profile.d/neovim.sh
 source /etc/profile.d/neovim.sh
-sudo apt install python3-venv nodejs npm python3-pip curl -y
+sudo apt install python3-venv nodejs npm python3-pip curl xclip -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
 curl -LsSf https://astral.sh/ruff/install.sh | sh
 ln -sfn ~/my_setup/nvim ~/.config/nvim
