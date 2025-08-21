@@ -10,8 +10,8 @@ sudo apt autoremove -y
 ```bash
 sudo apt remove firefox --purge -y
 sudo apt install extrepo -y
-sudo apt update
 sudo extrepo enable librewolf
+sudo apt update
 sudo apt install librewolf -y
 ```
 Install plugins:
