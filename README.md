@@ -39,9 +39,9 @@ Restart PC
 
 ### neovim
 ```bash
-sudo apt install neovim python3-venv nodejs npm python3-pip curl -y
+sudo apt install python3-venv nodejs npm python3-pip curl -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
-uv tool install ruff
+curl -LsSf https://astral.sh/ruff/install.sh | sh
 ln -sfn ~/my_setup/nvim ~/.config/nvim
 ```
 
