@@ -1,7 +1,6 @@
 # Environment Setup
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH=~/.npm-global/bin:$PATH
 
 # Source local environment if it exists
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
@@ -190,5 +189,7 @@ setopt extended_glob
 # Smart URLs - automatically escape special characters
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+export QT_QPA_PLATFORMTHEME=qt5ct
+export GTK_THEME=Mint-Y-Dark
 export QT_QPA_PLATFORMTHEME=qt5ct
 export GTK_THEME=Mint-Y-Dark

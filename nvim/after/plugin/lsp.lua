@@ -2,7 +2,16 @@ local lspconfig = require("lspconfig")
 local cmp = require("cmp")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Setup cmp without snippet expansion
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+
 cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<C-y>"] = cmp.mapping.complete(),
@@ -18,7 +27,6 @@ cmp.setup({
     }),
 })
 
--- Keymaps for LSP actions remain unchanged
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
     vim.keymap.set("n", "<leader>dc", vim.lsp.buf.declaration, opts)
@@ -32,52 +40,26 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
--- Lua
-lspconfig.lua_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "lua" },
-    settings = {
-        Lua = {
-            diagnostics = { globals = { "vim" } },
-            workspace = { checkThirdParty = false },
-        },
-    },
-})
-
--- Python
 lspconfig.ruff.setup({
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "python" },
+    init_options = {
+        settings = {
+            lint = {
+                enable = false
+            }
+    }
+}})
+
+vim.lsp.config('ty', {
+  settings = {
+    ty = {
+        experimental = {
+            rename = true,
+      },
+    }
+  }
 })
 
-lspconfig.pyright.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "python" },
-    settings = {
-        pyright = {},
-        python = {
-            analysis = {
-                typeCheckingMode = "off",
-                diagnosticSeverityOverrides = {
-                    reportMissingImports = "none",
-                    reportGeneralTypeIssues = "none",
-                    reportUnusedImport = "none",
-                    reportAttributeAccessIssue = "none",
-                    reportOptionalMemberAccess = "none",
-                    reportOptionalSubscript = "none",
-                    reportPrivateImportUsage = "none",
-                    reportInvalidTypeVarUse = "none",
-                    reportUntypedFunctionDecorator = "none",
-                    reportUntypedClassDecorator = "none",
-                    reportUntypedBaseClass = "none",
-                    reportUndefinedVariable = "none",
-                    reportCallInDefaultInitializer = "none",
-                },
-                autoImportCompletions = false,
-            },
-        },
-    },
-})
+vim.lsp.enable('ty')

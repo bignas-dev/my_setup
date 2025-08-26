@@ -10,8 +10,7 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "lua_ls",          -- Lua
-                    "ruff", "pyright", -- Python
+                    "ruff", "ty",
                 },
             })
         end,
@@ -22,9 +21,9 @@ return {
             {
                 "hrsh7th/nvim-cmp",
                 dependencies = {
-                    "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
-                    "hrsh7th/cmp-buffer",   -- Buffer completions
-                    "hrsh7th/cmp-path",     -- Path completions
+                    "hrsh7th/cmp-nvim-lsp",
+                    "hrsh7th/cmp-buffer",
+                    "hrsh7th/cmp-path",
                 },
             },
         },
