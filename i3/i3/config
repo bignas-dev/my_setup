@@ -9,26 +9,12 @@ for_window [class="^.*"] client.focused #77dd77 #285577 #ffffff #2e9ef4 #285577
 # Add gaps between windows                                                                                                                                                                   
 smart_borders on 
 
-# Screen lock binding                                                                                                                                                                        
-bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 000000 -f  
-
-# Remove sleeping
-exec --no-startup-id xset s off
-exec --no-startup-id xset -dpms
-exec --no-startup-id xset s noblank
+# Screen lock binding
+bindsym $mod+Ctrl+l exec --no-startup-id "i3lock && systemctl suspend"
 
 # Autostart applications
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# Ensure network-manager-gnome is installed for WiFi management in system tray
-exec --no-startup-id nm-applet
-exec --no-startup-id picom -b
-
-# Remap Caps Lock to Escape
-exec_always --no-startup-id xmodmap -e "clear lock" -e "keycode 66 = Escape"
-# Set global dark theme
-exec --no-startup-id /usr/libexec/gsd-xsettings
+exec_always --no-startup-id setxkbmap -layout us,lt -option grp:alt_shift_toggle,caps:escape
 
 # Basic Controls
 floating_modifier $mod
